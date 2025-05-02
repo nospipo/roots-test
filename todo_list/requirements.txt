@@ -1,0 +1,1 @@
+odoo -c odoo.conf -d test_db --stop-after-init 

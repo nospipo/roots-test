@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Calendar View -->
+    <record id="view_todo_list_calendar" model="ir.ui.view">
+        <field name="name">todo.list.calendar</field>
+        <field name="model">todo.list</field>
+        <field name="arch" type="xml">
+            <calendar string="Todo List Calendar" date_start="start_date" date_stop="end_date" color="user_id">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="user_id"/>
+                <field name="tags"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_todo_list_kanban" model="ir.ui.view">
+        <field name="name">todo.list.kanban</field>
+        <field name="model">todo.list</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="user_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="tags"/>
+                <field name="participant_ids"/>
+                <field name="progress"/>
+                <field name="color"/>
+                <field name="todo_item_count"/>
+                <field name="completed_item_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top mb-0">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <span t-field="record.name.value"/>
+                                    </strong>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left text-muted">
+                                        <span t-field="record.user_id.name"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <span t-field="record.status"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="tags" widget="many2many_tags"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="participant_ids" widget="many2many_tags"/>
+                                </div>
+                            </div>
+                            <div class="progress" style="margin-top: 8px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     t-att-style="'width: ' + record.progress.value + '%'"
+                                     t-att-aria-valuenow="record.progress.value"
+                                     aria-valuemin="0" aria-valuemax="100">
+                                    <span t-esc="record.progress.value + '%'"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-esc="record.completed_item_count.value + '/' + record.todo_item_count.value + ' Items'"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_todo_list_tree" model="ir.ui.view">
+        <field name="name">todo.list.tree</field>
+        <field name="model">todo.list</field>
+        <field name="arch" type="xml">
+            <tree string="Todo List" decoration-info="status=='draft'" decoration-warning="status=='in_progress'" decoration-success="status=='complete'">
+                <field name="name"/>
+                <field name="tags" widget="many2many_tags"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="status"/>
+                <field name="progress"/>
+                <field name="user_id"/>
+                <field name="participant_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_todo_list_form" model="ir.ui.view">
+        <field name="name">todo.list.form</field>
+        <field name="model">todo.list</field>
+        <field name="arch" type="xml">
+            <form string="Todo List">
+                <header>
+                    <button name="action_start_progress" string="Start Progress" type="object" class="oe_highlight" 
+                            attrs="{'invisible': [('status', '!=', 'draft')]}"/>
+                    <button name="action_complete" string="Done" type="object" class="oe_highlight" 
+                            attrs="{'invisible': [('status', '!=', 'in_progress'), ('all_items_done', '=', False)]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,complete"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_todo_items" type="object" class="oe_stat_button" icon="fa-tasks">
+                            <field name="todo_item_count" widget="statinfo" string="Items"/>
+                        </button>
+                        <button name="%(mail.mail_activity_action_feedback)d" type="action" class="oe_stat_button" icon="fa-clock-o">
+                            <field name="activity_ids" widget="statinfo" string="Activities"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Enter todo name..." attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="start_date" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="end_date" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="tags" widget="many2many_tags" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="participant_ids" widget="many2many_tags" options="{'no_create': True}" 
+                                   attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                        </page>
+                        <page string="Todo Items">
+                            <div class="alert alert-info" role="alert" attrs="{'invisible': [('status', '!=', 'in_progress')]}">
+                                <strong>Progress:</strong> <field name="progress" widget="progressbar" options="{'editable': false}"/>
+                            </div>
+                            <field name="todo_item_ids" attrs="{'readonly': [('is_locked', '=', True)]}">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="is_done" attrs="{'invisible': [('todo_list_status', '!=', 'in_progress')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_todo_list_search" model="ir.ui.view">
+        <field name="name">todo.list.search</field>
+        <field name="model">todo.list</field>
+        <field name="arch" type="xml">
+            <search string="Todo List">
+                <field name="name"/>
+                <field name="tags"/>
+                <field name="status"/>
+                <field name="user_id"/>
+                <field name="participant_ids"/>
+                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('status','=','in_progress')]"/>
+                <filter string="Completed" name="complete" domain="[('status','=','complete')]"/>
+                <filter string="My Todo Lists" name="my_todo_lists" domain="[('user_id','=',uid)]"/>
+                <filter string="Overdue" name="overdue" domain="[('end_date','&lt;',context_today())]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by':'status'}"/>
+                    <filter string="User" name="group_by_user" context="{'group_by':'user_id'}"/>
+                    <filter string="Tags" name="group_by_tags" context="{'group_by':'tags'}"/>
+                    <filter string="Participants" name="group_by_participants" context="{'group_by':'participant_ids'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_todo_list_all" model="ir.actions.act_window">
+        <field name="name">All Todo Lists</field>
+        <field name="res_model">todo.list</field>
+        <field name="view_mode">kanban,tree,calendar,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first todo list!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_todo_list_uncomplete" model="ir.actions.act_window">
+        <field name="name">Uncomplete Todo Lists</field>
+        <field name="res_model">todo.list</field>
+        <field name="view_mode">kanban,tree,calendar,form</field>
+        <field name="domain">[('status', '!=', 'complete')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first todo list!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_todo_list_complete" model="ir.actions.act_window">
+        <field name="name">Complete Todo Lists</field>
+        <field name="res_model">todo.list</field>
+        <field name="view_mode">kanban,tree,calendar,form</field>
+        <field name="domain">[('status', '=', 'complete')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No completed todo lists found!
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_todo_root" 
+              name="Todo" 
+              sequence="10"/>
+
+    <!-- Sub Menus -->
+    <menuitem id="menu_todo_list_all" 
+              name="All" 
+              parent="menu_todo_root" 
+              action="action_todo_list_all" 
+              sequence="10"/>
+
+    <menuitem id="menu_todo_list_uncomplete" 
+              name="Uncomplete" 
+              parent="menu_todo_root" 
+              action="action_todo_list_uncomplete" 
+              sequence="20"/>
+
+    <menuitem id="menu_todo_list_complete" 
+              name="Complete" 
+              parent="menu_todo_root" 
+              action="action_todo_list_complete" 
+              sequence="30"/>
+</odoo> 
