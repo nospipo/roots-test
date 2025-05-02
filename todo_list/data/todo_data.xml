@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default Tags -->
+    <record id="tag_work" model="todo.tag">
+        <field name="name">Work</field>
+        <field name="color">1</field>
+    </record>
+    <record id="tag_personal" model="todo.tag">
+        <field name="name">Personal</field>
+        <field name="color">2</field>
+    </record>
+    <record id="tag_urgent" model="todo.tag">
+        <field name="name">Urgent</field>
+        <field name="color">3</field>
+    </record>
+
+    <!-- Mail Templates -->
+    <record id="email_template_todo_assign" model="mail.template">
+        <field name="name">Todo: Task Assignment</field>
+        <field name="model_id" ref="model_todo_todo"/>
+        <field name="subject">Task Assigned: {{ object.name }}</field>
+        <field name="body_html">
+            <div>
+                <p>Hello {{ object.user_id.name }},</p>
+                <p>You have been assigned to the following task:</p>
+                <p><strong>{{ object.name }}</strong></p>
+                <p>Description: {{ object.description }}</p>
+                <p>Due Date: {{ object.due_date }}</p>
+                <p>Priority: {{ object.priority }}</p>
+                <p>You can view the task by clicking <a href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=todo.todo&amp;view_type=form">here</a>.</p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Scheduled Actions -->
+    <record id="ir_cron_generate_recurring_tasks" model="ir.cron">
+        <field name="name">Generate Recurring Tasks</field>
+        <field name="model_id" ref="model_todo_todo"/>
+        <field name="state">code</field>
+        <field name="code">model.generate_recurring_task()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">False</field>
+    </record>
+</odoo> 

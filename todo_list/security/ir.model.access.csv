@@ -1,4 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_todo_list_user,todo.list.user,todo.list,base.group_user,1,1,1,1
 access_todo_item_user,todo.item.user,todo.item,base.group_user,1,1,1,1
-access_todo_tags_user,todo.tags.user,todo.tags,base.group_user,1,1,1,1 
+access_todo_tags_user,todo.tags.user,todo.tags,base.group_user,1,1,1,1
+access_todo_todo_user,todo.todo.user,model_todo_todo,base.group_user,1,1,1,1
+access_todo_todo_manager,todo.todo.manager,model_todo_todo,base.group_system,1,1,1,1
+access_todo_tag_user,todo.tag.user,model_todo_tag,base.group_user,1,1,1,1
+access_todo_tag_manager,todo.tag.manager,model_todo_tag,base.group_system,1,1,1,1 

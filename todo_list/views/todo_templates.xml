@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kanban Template -->
+    <template id="kanban_todo" inherit_id="mail.message_notification_light">
+        <t t-call="mail.message_notification_light">
+            <div t-attf-class="o_Message #{message.author_id == env.user.partner_id ? 'o_Message_own' : ''}">
+                <div class="o_Message_author">
+                    <span t-esc="message.author_id.name"/>
+                </div>
+                <div class="o_Message_content">
+                    <div class="o_Message_prettyBody">
+                        <t t-esc="message.body"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Calendar Template -->
+    <template id="calendar_todo" inherit_id="calendar.view_calendar_event_form">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="todo_id" invisible="1"/>
+        </xpath>
+    </template>
+
+    <!-- Progress Bar Template -->
+    <template id="progress_bar" name="Todo Progress Bar">
+        <div class="o_progressbar">
+            <div class="o_progressbar_value" t-att-style="'width: ' + widget.value + '%'">
+                <span t-esc="widget.value + '%'"/>
+            </div>
+        </div>
+    </template>
+</odoo> 

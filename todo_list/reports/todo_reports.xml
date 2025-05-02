@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_todo_report" model="ir.actions.report">
+        <field name="name">Todo Report</field>
+        <field name="model">todo.todo</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">todo_list.todo_report_template</field>
+        <field name="report_file">todo_list.todo_report_template</field>
+        <field name="print_report_name">'Todo Report - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_todo_todo"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_todo_analysis" model="ir.actions.report">
+        <field name="name">Todo Analysis</field>
+        <field name="model">todo.todo</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">todo_list.todo_analysis_template</field>
+        <field name="report_file">todo_list.todo_analysis_template</field>
+        <field name="print_report_name">'Todo Analysis - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_todo_todo"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo> 

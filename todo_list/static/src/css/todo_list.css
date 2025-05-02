@@ -1,0 +1,130 @@
+.o_todo_list {
+    padding: 16px;
+}
+
+.o_todo_item {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.o_todo_item:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.o_todo_title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.o_todo_description {
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.o_todo_meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.o_todo_status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.o_todo_status_draft {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.o_todo_status_in_progress {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.o_todo_status_done {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.o_todo_status_cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.o_progressbar {
+    height: 20px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.o_progressbar_value {
+    height: 100%;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+
+.o_todo_actions {
+    display: flex;
+    gap: 8px;
+}
+
+.o_todo_tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-right: 4px;
+}
+
+.o_todo_calendar {
+    margin-top: 16px;
+}
+
+.o_todo_kanban {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.o_todo_kanban_card {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    padding: 16px;
+}
+
+.o_todo_kanban_card:hover {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.o_todo_report {
+    padding: 24px;
+}
+
+.o_todo_report h2 {
+    margin-bottom: 16px;
+}
+
+.o_todo_report table {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.o_todo_report th {
+    text-align: left;
+    padding: 8px;
+    background-color: #f8f9fa;
+}
+
+.o_todo_report td {
+    padding: 8px;
+    border-bottom: 1px solid #dee2e6;
+} 

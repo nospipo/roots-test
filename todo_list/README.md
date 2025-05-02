@@ -1,42 +1,55 @@
-# Todo List Management Module
+# Todo List Module for Odoo
 
-## การติดตั้ง
+A comprehensive todo list management system for Odoo with features for task tracking, progress monitoring, and team collaboration.
 
-1. ย้ายโฟลเดอร์ todo_list ไปยังโฟลเดอร์ addons ของ Odoo:
-   ```
-   C:\Program Files (x86)\Odoo 16.0\server\odoo\addons\todo_list
-   ```
+## Features
 
-2. รีสตาร์ท Odoo server
+- Create, read, update, and delete todo items
+- Track task status (Draft, In Progress, Done, Cancelled)
+- Set priorities (Low, Normal, High, Very High)
+- Monitor progress with percentage tracking
+- Set due dates and track overdue tasks
+- Organize tasks with color-coded tags
+- Kanban view for visual task management
+- Assign tasks to team members
+- Search and filter tasks by various criteria
 
-3. เปิด Odoo ในโหมด Developer:
-   - เข้าไปที่ Odoo
-   - กดปุ่ม Activate the developer mode (หรือกด Alt + D)
-   - ไปที่ Apps > Update Apps List
-   - ค้นหา "Todo List Management"
-   - กด Install
+## Installation
 
-## การใช้งาน
+1. Copy the `todo_list` folder to your Odoo addons directory
+2. Update the module list in Odoo
+3. Install the "Todo List" module from the Apps menu
 
-1. หลังจากติดตั้งเสร็จ จะเห็นเมนู "Todo Lists" ในเมนูหลัก
-2. มี 3 เมนูย่อย:
-   - All: แสดงรายการทั้งหมด
-   - Uncomplete: แสดงรายการที่ยังไม่เสร็จ
-   - Complete: แสดงรายการที่เสร็จแล้ว
+## Usage
 
-## การสร้าง Todo List
+### Creating a Todo Item
 
-1. กดปุ่ม Create
-2. กรอกข้อมูลที่จำเป็น:
-   - ชื่อ Todo List
-   - วันที่เริ่มต้น
-   - วันที่สิ้นสุด
-   - Tags (มี Work, Event, Life เป็นค่าเริ่มต้น)
-3. เพิ่มรายการย่อยได้โดยตรงในหน้า form
-4. เพิ่มผู้เข้าร่วมได้ผ่าน field Participants
+1. Go to Todo List > Todo Items
+2. Click Create
+3. Fill in the required information:
+   - Title
+   - Description (optional)
+   - Assign to user
+   - Set priority
+   - Set due date
+   - Add tags
+4. Click Save
 
-## การเปลี่ยนสถานะ
+### Managing Tasks
 
-- Draft: สถานะเริ่มต้น
-- In Progress: กดปุ่ม "Start Progress"
-- Complete: กดปุ่ม "Done" เมื่อรายการย่อยทั้งหมดเสร็จแล้ว
+- Use the status bar to track task progress
+- Click "Start" to begin working on a task
+- Click "Done" to mark a task as completed
+- Use the Kanban view for visual task management
+- Filter tasks by status, user, or priority
+- Group tasks by various criteria
+
+### Managing Tags
+
+1. Go to Todo List > Tags
+2. Create new tags with names and colors
+3. Assign tags to todo items
+
+## Support
+
+For support or questions, please contact your system administrator.
